@@ -6,7 +6,8 @@ services:
     ports:
       - '9000:9000'
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+      - ${SRV_APPDATA}/persistent:/data:rw
     deploy:
       placement:
         constraints:
