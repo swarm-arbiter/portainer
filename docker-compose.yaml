@@ -34,6 +34,8 @@ services:
         constraints:
           - node.role == manager
       replicas: 1
+    depends_on:
+      - agent # frontend wont work until it can contact the agent
 
 networks:
   agent_network:
