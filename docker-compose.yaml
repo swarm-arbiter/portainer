@@ -22,9 +22,8 @@ services:
   frontend:
     image: portainer/portainer
     command: -H tcp://tasks.agent:9001 --tlsskipverify
-    ports:
-      - '9000:9000'
     networks:
+      - revprox_ingress
       - agent_network
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:rw
@@ -34,6 +33,11 @@ services:
         constraints:
           - node.role == manager
       replicas: 1
+      labels:
+        - "traefik.docker.network=revprox_ingress"
+        - "traefik.port=9000"
+        - "traefik.backend=portainer"
+        - "traefik.frontend.rule=Host:portainer.terry.cloud"
     depends_on:
       - agent # frontend wont work until it can contact the agent
 
@@ -41,3 +45,5 @@ networks:
   agent_network:
     driver: overlay
     attachable: true
+  revprox_ingress:
+    external: true
