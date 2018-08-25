@@ -37,7 +37,7 @@ services:
         - "traefik.docker.network=revprox_ingress"
         - "traefik.port=9000"
         - "traefik.backend=portainer"
-        - "traefik.frontend.rule=Host:portainer.terry.cloud"
+        - "traefik.frontend.rule=Host:${PORTAINER_HOSTNAME}"
     depends_on:
       - agent # frontend wont work until it can contact the agent
 
