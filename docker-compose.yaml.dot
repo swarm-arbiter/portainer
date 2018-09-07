@@ -27,7 +27,7 @@ services:
       - agent_network
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:rw
-      - ${STACK_DATA_DIR}/persistent:/data:rw
+      - {{= stack.data_dir }}/persistent:/data:rw
     deploy:
       placement:
         constraints:
